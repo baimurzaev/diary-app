@@ -1,0 +1,82 @@
+version: "3.8"
+
+services:
+    nginx:
+        container_name: ${PROJECT_NAME}-nginx
+        build:
+            context: ./docker/nginx
+        ports:
+            - "80:80"
+        volumes:
+            - ./:/app
+        environment:
+            NGINX_HOST: ${NGINX_HOST}
+            NGINX_PORT: ${NGINX_PORT}
+            NGINX_DOC_ROOT: ${NGINX_ROOT}
+        depends_on:
+            - php
+        networks:
+            laravel:
+                ipv4_address: 172.16.0.2
+
+    php:
+        container_name: ${PROJECT_NAME}-app
+        build:
+            context: ./docker/php
+            args:
+                - PUID=${PUID}
+                - PGID=${PGID}
+                - INSTALL_XDEBUG=${INSTALL_XDEBUG}
+        environment:
+            PHP_IDE_CONFIG: "serverName=Docker"
+        depends_on:
+            - postgres
+            - memcached
+        volumes:
+            - ./:/app
+        networks:
+            laravel:
+                ipv4_address: 172.16.0.3
+
+    postgres:
+        image: postgres:14-alpine
+        container_name: ${PROJECT_NAME}-postgres
+        restart: always
+        environment:
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            - POSTGRES_DB=${POSTGRES_DB}
+            - PGDATA=${PGDATA}
+        ports:
+            - "5432:5432"
+        volumes:
+            - ./docker/postgres/data:${PGDATA}
+            - ./docker/postgres/initdb.d:/docker-entrypoint-initdb.d/
+        networks:
+            laravel:
+                ipv4_address: 172.16.0.4
+
+    adminer:
+        image: adminer
+        container_name: ${PROJECT_NAME}-pgadmin
+        restart: always
+        ports:
+            - "8080:8080"
+        networks:
+            laravel:
+                ipv4_address: 172.16.0.5
+
+    memcached:
+        image: memcached:latest
+        container_name: ${PROJECT_NAME}-memcached
+        restart: always
+        ports:
+            - "11211:11211"
+        networks:
+            laravel:
+                ipv4_address: 172.16.0.6
+
+networks:
+    laravel:
+        external:
+            name: diarynet
