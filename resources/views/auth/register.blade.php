@@ -1,59 +1,43 @@
 <x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+    <div class="text-center">
+        <main class="form-register w-100 m-auto">
+            <!-- Session Status -->
+            <x-auth-session-status class="mb-4" :status="session('status')"/>
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+                <img class="mb-4" src="/svg/logo.svg" alt="" width="90">
+                <h1 class="h4 mb-3 fw-normal">Регистрация</h1>
+                <!-- Validation Errors -->
+                <x-auth-validation-errors class="mb-4" :errors="$errors"/>
+                <!-- Name -->
+                <div class="form-floating border-first">
+                    <input type="text" name="name" class="form-control" id="userName" placeholder="Имя"/>
+                    <label for="userName">Имя</label>
+                </div>
+                <!-- Email -->
+                <div class="form-floating border-middle">
+                    <input type="email" name="email" class="form-control" id="userEmail" placeholder="name@example.ru"/>
+                    <label for="userEmail">Email</label>
+                </div>
+                <!-- Password -->
+                <div class="form-floating border-middle">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Пароль"/>
+                    <label for="password">Пароль</label>
+                </div>
+                <!-- Confirm Password -->
+                <div class="form-floating border-last">
+                    <input type="password" name="password_confirmation" class="form-control"
+                           id="passwordConfirmation" placeholder="Повторите пароль"/>
+                    <label for="passwordConfirmation">Повторите пароль</label>
+                </div>
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+                <button class="w-100 btn btn-lg btn-primary" type="submit">Зарегистрироваться</button>
 
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
+                <div class="mt-3 mb-3 text-center"><a href="/login">Войти</a></div>
 
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
-            </div>
-
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
+                <p class="mt-5 mb-3 text-muted">&copy; <?= date('Y') ?> Электронный дневник</p>
+            </form>
+        </main>
+    </div>
 </x-guest-layout>
