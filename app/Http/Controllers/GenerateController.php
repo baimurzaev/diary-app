@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Generate\ClassroomService;
 use App\Services\Generate\GroupsService;
 use App\Services\Generate\SubjectsService;
 use App\Services\Generate\UsersService;
 
 class GenerateController extends Controller
 {
-
     /**
-     * @return void
+     * @return string
      */
-    public function generateAll(): void
+    public function generateAll(): string
     {
-        $this->createUsers();
-        $this->createGroups();
         $this->createSubjects();
         $this->createClassrooms();
+        $this->createGroups();
+        $this->createUsers();
+
+        return 'Сущности успешно сгенерированны!';
     }
 
     public function createGroups(): void
@@ -32,8 +34,8 @@ class GenerateController extends Controller
     public function createUsers(): void
     {
         $service = new UsersService();
-        $service->createPupils();
-        $service->createTeachers();
+        $service->createPupils(20);
+        $service->createTeachers(2);
     }
 
     /**
@@ -47,7 +49,7 @@ class GenerateController extends Controller
 
     public function createClassrooms(): void
     {
-        $service = new SubjectsService();
+        $service = new ClassroomService();
         $service->create();
     }
 }

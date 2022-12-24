@@ -11,7 +11,7 @@ class GenerateUsers
      * @param int $groupId
      * @return array
      */
-    public static function create(int $amount = 10, int $groupId = 2): array
+    public static function generate(int $amount = 10, int $groupId = 2): array
     {
         $data = [];
         $generate = new GenerateName();

@@ -9,10 +9,10 @@ final class GroupsService
 {
     public function createGroups(): void
     {
-        foreach (Constants::$types as $key => $value) {
-            $account = new Group();
-            $account->$key = $value;
-            $account->save();
+        foreach (Constants::$types as $name) {
+            $group = new Group();
+            $group->name = $name;
+            $group->save();
         }
     }
 }

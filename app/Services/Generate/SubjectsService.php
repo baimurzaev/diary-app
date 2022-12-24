@@ -15,6 +15,7 @@ class SubjectsService
         foreach (Constants::SUBJECTS as $name) {
             $subject = new Subject();
             $subject->name = $name;
+            $subject->save();
         }
     }
 }

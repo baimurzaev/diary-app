@@ -13,8 +13,9 @@ class ClassroomService
     public function create(): void
     {
         foreach (Constants::CLASSROOMS as $name) {
-            $subject = new Classroom();
-            $subject->name = $name;
+            $classroom = new Classroom();
+            $classroom->name = $name;
+            $classroom->save();
         }
     }
 }

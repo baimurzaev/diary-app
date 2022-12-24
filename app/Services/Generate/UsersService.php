@@ -9,22 +9,24 @@ use App\Models\User;
 class UsersService
 {
     /**
+     * @param $amount
      * @return void
      */
-    public function createPupils(): void
+    public function createPupils($amount): void
     {
         $this->createUsers(
-            GenerateUsers::create(20, Constants::PUPIL)
+            GenerateUsers::generate(20, Constants::GROUP_PUPIL)
         );
     }
 
     /**
+     * @param $amount
      * @return void
      */
-    public function createTeachers(): void
+    public function createTeachers($amount): void
     {
         $this->createUsers(
-            GenerateUsers::create(2, Constants::TEACHER)
+            GenerateUsers::generate($amount, Constants::GROUP_TEACHER)
         );
     }
 
@@ -35,9 +37,7 @@ class UsersService
     private function createUsers(array $users): void
     {
         foreach ($users as $user) {
-            $userModel = new User();
-            $userModel->append($user);
-            $userModel->save();
+            User::create($user);
         }
     }
 }
