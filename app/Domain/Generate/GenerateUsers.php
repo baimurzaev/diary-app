@@ -2,6 +2,8 @@
 
 namespace App\Domain\Generate;
 
+use Illuminate\Support\Facades\Hash;
+
 class GenerateUsers
 {
     /**
@@ -18,7 +20,7 @@ class GenerateUsers
             $data[] = [
                 'name' => $generate->firstName(),
                 'email' => sprintf("user%s_g%s@mail.ru", $i, $groupId),
-                'password' => '',
+                'password' => Hash::make('12341234'),
                 'middle_name' => $generate->middleName(),
                 'last_name' => $generate->lastName(),
                 'group_id' => $groupId,

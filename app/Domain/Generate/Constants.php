@@ -16,6 +16,10 @@ final class Constants
         'Физика'
     ];
 
+    public const  CLASSROOMS = [
+        '5А', '5Б', '5В', '5Г'
+    ];
+
     public const MALE_FIRST_NAMES = [
         'Александр',
         'Алексей',
