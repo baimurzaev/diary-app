@@ -11,18 +11,18 @@ class GenerateUsers
      * @param int $groupId
      * @return array
      */
-    public static function generate(int $amount = 10, int $groupId = 2): array
+    public static function generate(int $amount, int $groupId): array
     {
         $data = [];
-        $generate = new GenerateName();
+        $userGenerate = new GenerateName();
 
         for ($i = 1; $i <= $amount; $i++) {
             $data[] = [
-                'name' => $generate->firstName(),
+                'name' => $userGenerate->firstName(),
                 'email' => sprintf("user%s_g%s@mail.ru", $i, $groupId),
                 'password' => Hash::make('12341234'),
-                'middle_name' => $generate->middleName(),
-                'last_name' => $generate->lastName(),
+                'middle_name' => $userGenerate->middleName(),
+                'last_name' => $userGenerate->lastName(),
                 'group_id' => $groupId,
             ];
         }

@@ -15,7 +15,7 @@ class UsersService
     public function createPupils($amount): void
     {
         $this->createUsers(
-            GenerateUsers::generate(20, Constants::GROUP_PUPIL)
+            GenerateUsers::generate($amount, Constants::GROUP_PUPIL)
         );
     }
 

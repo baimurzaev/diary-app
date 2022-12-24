@@ -34,8 +34,8 @@ class GenerateController extends Controller
     public function createUsers(): void
     {
         $service = new UsersService();
-        $service->createPupils(20);
         $service->createTeachers(2);
+        $service->createPupils(20);
     }
 
     /**
