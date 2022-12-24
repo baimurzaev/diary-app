@@ -15,13 +15,13 @@ class CreateScheduleLessonsTable extends Migration
     {
         Schema::create('schedule_lessons', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('subject_id');
-            $table->bigInteger('schedule_id');
+            $table->bigInteger('subject_id')->index();
+            $table->bigInteger('schedule_id')->index();
             $table->string('note', 128)->nullable();
             $table->string('homework', 255)->nullable();
             $table->dateTime('lesson_start');
             $table->dateTime('lesson_end');
-            $table->foreignId('subject_id')->constrained('subjects');
+            //$table->foreignId('subject_id')->constrained('subjects');
             $table->timestamps();
         });
     }

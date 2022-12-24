@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->index();
             $table->string('middle_name', 64)->nullable();
             $table->string('last_name', 64)->nullable();
-            $table->tinyInteger('group_id');
+            $table->tinyInteger('group_id')->index();
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
