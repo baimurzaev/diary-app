@@ -15,8 +15,8 @@ class CreateScheduleLessonsTable extends Migration
     {
         Schema::create('schedule_lessons', function (Blueprint $table) {
             $table->id();
-            $table->integer('subject_id')->unsigned();
-            $table->integer('schedule_id')->unsigned();
+            $table->bigInteger('subject_id');
+            $table->bigInteger('schedule_id');
             $table->string('note', 128)->nullable();
             $table->string('homework', 255)->nullable();
             $table->dateTime('lesson_start');
