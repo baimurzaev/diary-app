@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classroom;
+use App\Models\ClassroomUser;
 use App\Services\Generate\ClassroomService;
 use App\Services\Generate\GroupsService;
 use App\Services\Generate\SubjectsService;
 use App\Services\Generate\UsersService;
+use Illuminate\Support\Facades\Auth;
 
-class GenerateController extends Controller
+final class GenerateController extends Controller
 {
     /**
      * @return string
@@ -18,8 +21,19 @@ class GenerateController extends Controller
         $this->createClassrooms();
         $this->createGroups();
         $this->createUsers();
+        $this->createLinkUserToClassroom();
 
         return 'Сущности успешно сгенерированны!';
+    }
+
+    public function createLinkUserToClassroom()
+    {
+        foreach (Classroom::all() as $classroom) {
+            ClassroomUser::create([
+                'user_id' => Auth::id(),
+                'classroom_id' => $classroom->id
+            ]);
+        }
     }
 
     public function createGroups(): void
