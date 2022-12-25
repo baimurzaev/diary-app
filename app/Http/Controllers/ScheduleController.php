@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
 {
@@ -16,6 +17,10 @@ class ScheduleController extends Controller
             $input = $request->only(['username', 'password']);
         }
 
-        return view('schedule.add');
+        $classrooms = DB::table('classrooms')->orderBy('created_at', 'desc')->get();
+
+        return view('schedule.add', [
+            'classrooms' => $classrooms
+        ]);
     }
 }

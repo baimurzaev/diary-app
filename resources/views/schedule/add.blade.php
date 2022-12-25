@@ -9,7 +9,7 @@
 
     <main class="container">
         <div class="bg-light p-5 rounded mt-3">
-            <div class="container">
+
                 <div class="col-5">
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" id="floatingInput" placeholder="Название">
@@ -19,15 +19,15 @@
                     <div class="form-floating">
                         <select class="form-select mb-3" id="floatingSelect" aria-label="Floating label select example">
                             <option selected></option>
-                            <option value="1">One</option>
+                            @foreach($classrooms as $classroom)
+                                <option value="{{$classroom->id}}">{{$classroom->name}}</option>
+                            @endforeach
                         </select>
                         <label for="floatingSelect">Выберите класс</label>
                     </div>
                 </div>
-            </div>
 
             <br>
-            <a class="btn btn-primary" href="javascript:history.back()" role="button">&laquo; вернуться назад</a>
             <a class="btn btn-success" href="/" role="button">Сохранить расписание &raquo;</a>
         </div>
     </main>

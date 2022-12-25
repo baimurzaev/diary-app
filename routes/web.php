@@ -31,7 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::match(['get', 'post'], '/classroom/add', [ClassroomController::class, 'add']);
     Route::match(['get', 'post'], '/classroom/edit/id/{id}/', [ClassroomController::class, 'edit']);
     Route::post('/classroom/delete', [ClassroomController::class, 'delete']);
-    Route::get("/classroom/pupils/list/id/{id}",[ClassroomController::class,'pupilsList']);
+    Route::get("/classroom/pupils/list/id/{id}", [ClassroomController::class, 'pupilsList']);
 
     # Generate users (for classroom)
     Route::post('/generate/classroom/pupils', [GenerateController::class, 'generatePupils']);
