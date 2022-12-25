@@ -13,25 +13,23 @@ class UsersService
 {
     /**
      * @param int $amount
-     * @param int $genderType
      * @return void
      */
-    public function createPupils(int $amount, int $genderType): void
+    public function createPupils(int $amount): void
     {
         $this->createUsers(
-            GenerateUsers::generate($amount, Constants::GROUP_PUPIL, $genderType)
+            GenerateUsers::generate($amount, Constants::GROUP_PUPIL)
         );
     }
 
     /**
      * @param int $amount
-     * @param int $genderType
      * @return void
      */
-    public function createTeachers(int $amount, int $genderType): void
+    public function createTeachers(int $amount): void
     {
         $this->createUsers(
-            GenerateUsers::generate($amount, Constants::GROUP_TEACHER, $genderType)
+            GenerateUsers::generate($amount, Constants::GROUP_TEACHER)
         );
     }
 
@@ -54,13 +52,13 @@ class UsersService
     {
         // Add males
         $this->addPupilsToClassroom(
-            GenerateUsers::generate(15, Constants::GROUP_PUPIL, ConstantsGenerate::GENDER_MALE),
+            GenerateUsers::generate(15, Constants::GROUP_PUPIL),
             $classroomId
         );
 
         // Add females
         $this->addPupilsToClassroom(
-            GenerateUsers::generate(15, Constants::GROUP_PUPIL, ConstantsGenerate::GENDER_FEMALE),
+            GenerateUsers::generate(15, Constants::GROUP_PUPIL),
             $classroomId
         );
     }

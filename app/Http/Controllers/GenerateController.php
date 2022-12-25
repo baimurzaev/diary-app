@@ -22,9 +22,13 @@ final class GenerateController extends Controller
     public function generateAll(): string
     {
         $this->createSubjects();
+
         $this->createClassrooms();
+
         $this->createGroups();
+
         $this->createUsers();
+
         $this->createLinkUserToClassroom();
 
         return 'Сущности успешно сгенерированны!';
@@ -52,10 +56,9 @@ final class GenerateController extends Controller
     public function createUsers(): void
     {
         $service = new UsersService();
-        $service->createTeachers(2, Constants::GENDER_MALE);
+        $service->createTeachers(2);
 
-        $service->createPupils(15, Constants::GENDER_MALE);
-        $service->createPupils(15, Constants::GENDER_FEMALE);
+        $service->createPupils(30);
     }
 
     /**
