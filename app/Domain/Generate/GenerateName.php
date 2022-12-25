@@ -5,27 +5,34 @@ namespace App\Domain\Generate;
 final class GenerateName
 {
     /**
+     * @param $genderType
      * @return string
      */
-    public function firstName(): string
+    public function firstName($genderType): string
     {
-        return $this->random(Constants::MALE_FIRST_NAMES);
+        $list = ($genderType == 1) ? Constants::MALE_FIRST_NAMES : Constants::FEMALE_FIRST_NAMES;
+
+        return $this->random($list);
     }
 
     /**
      * @return string
      */
-    public function middleName(): string
+    public function middleName($genderType): string
     {
-        return $this->random(Constants::MALE_MIDDLE_NAME);
+        $list = ($genderType == 1) ? Constants::MALE_MIDDLE_NAME : Constants::FEMALE_MIDDLE_NAME;
+
+        return $this->random($list);
     }
 
     /**
      * @return string
      */
-    public function lastName(): string
+    public function lastName($genderType): string
     {
-        return $this->random(Constants::MALE_LAST_NAMES);
+        $list = ($genderType == 1) ? Constants::MALE_LAST_NAMES : Constants::FEMALE_LAST_NAMES;
+
+        return $this->random($list);
     }
 
     /**

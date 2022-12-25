@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Generate\Constants;
+use App\Domain\Generate\GenerateUsers;
 use App\Models\Classroom;
 use App\Models\ClassroomUser;
 use App\Services\Generate\ClassroomService;
 use App\Services\Generate\GroupsService;
 use App\Services\Generate\SubjectsService;
 use App\Services\Generate\UsersService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 final class GenerateController extends Controller
 {
@@ -48,8 +52,10 @@ final class GenerateController extends Controller
     public function createUsers(): void
     {
         $service = new UsersService();
-        $service->createTeachers(2);
-        $service->createPupils(20);
+        $service->createTeachers(2, Constants::GENDER_MALE);
+
+        $service->createPupils(15, Constants::GENDER_MALE);
+        $service->createPupils(15, Constants::GENDER_FEMALE);
     }
 
     /**
@@ -65,5 +71,29 @@ final class GenerateController extends Controller
     {
         $service = new ClassroomService();
         $service->create();
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function generatePupils(Request $request): JsonResponse
+    {
+        if ($request->isMethod('post')) {
+            $classroomId = (int)$request->id;
+
+            if ($classroomId > 0) {
+                $classroom = Classroom::find($classroomId);
+
+                if ($classroom) {
+                    $service = new UsersService();
+                    $service->generatePupilsForClassroom($classroomId);
+                }
+
+                return response()->json(['status' => "ok"]);
+            }
+        }
+
+        return response()->json(['status' => "err"]);
     }
 }

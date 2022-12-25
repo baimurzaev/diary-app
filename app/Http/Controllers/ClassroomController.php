@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classroom;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ClassroomController extends Controller
@@ -13,6 +15,31 @@ class ClassroomController extends Controller
         return view('classroom.list', [
             'classrooms' => Classroom::all()
         ]);
+    }
+
+    public function pupilsList(Request $request)
+    {
+        $id = (int)$request->id;
+
+        if ($id > 0) {
+            if (Classroom::find($id)) {
+                $count = DB::table('classroom_users')
+                    ->where('classroom_id', '=', $id)
+                    ->count();
+
+                $pupils = DB::table('classroom_users as cu')
+                    ->leftJoin('users as u', 'cu.user_id', '=', 'u.id')
+                    ->where("cu.classroom_id", '=', $id)
+                    ->get();
+
+                return view('classroom.pupils', [
+                    'count' => $count,
+                    'pupils' => $pupils
+                ]);
+            }
+        }
+
+        return '';
     }
 
     public function add(Request $request)
@@ -55,23 +82,27 @@ class ClassroomController extends Controller
         abort(404);
     }
 
-    public function delete(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function delete(Request $request): JsonResponse
     {
         if ($request->isMethod('post')) {
-            $id = (int)$request->id;
+            $id = (int)$request->post('id');
+
             if ($id > 0) {
                 /** @var Classroom $classroom */
                 $classroom = Classroom::find($id);
+
                 if ($classroom) {
                     $classroom->delete();
-
-                    response()->json(['status' => 'ok']);
+                    return response()->json(['status' => 'ok']);
                 }
             }
         }
 
         return response()->json(['status' => 'err']);
     }
-
 
 }

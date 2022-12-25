@@ -14,8 +14,8 @@
                 <div class="container">
                     <div class="col-5">
                         <div class="form-floating mb-3">
-                            <input type="text" name="name" class="form-control" id="floatingInput" placeholder="Название">
-                            <label for="floatingInput">Название</label>
+                            <input type="text" name="name" class="form-control" id="floatingInput" placeholder="Название класса">
+                            <label for="floatingInput">Название класса</label>
                         </div>
                     </div>
                 </div>

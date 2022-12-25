@@ -27,11 +27,12 @@
     @endforeach
 
     <script>
-        let classroom = (function (id) {
+        let classroom = (function () {
+            let csrfToken = "{{ csrf_token() }}";
             return {
-                delete: function () {
+                delete: function (id) {
                     if (confirm("Внимание! будет удален класс. Продолжить?")) {
-                        $.post('/classroom/delete', {id: id}, function (res) {
+                        $.post('/classroom/delete', {id: id, '_token': csrfToken}, function (res) {
                             if (res.hasOwnProperty('status') && res.status === "ok") {
                                 location.href = '/classroom';
                             }
