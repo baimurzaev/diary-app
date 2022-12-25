@@ -20,10 +20,10 @@ class UsersService
     }
 
     /**
-     * @param $amount
+     * @param int $amount
      * @return void
      */
-    public function createTeachers($amount): void
+    public function createTeachers(int $amount): void
     {
         $this->createUsers(
             GenerateUsers::generate($amount, Constants::GROUP_TEACHER)
