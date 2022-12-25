@@ -17,6 +17,7 @@ class CreateClassroomUsersTable extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('classroom_id');
             $table->unique(['user_id', 'classroom_id']);
+            //$table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
         });
     }
 
