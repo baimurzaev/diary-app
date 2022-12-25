@@ -10,8 +10,7 @@
     <main class="container">
         <form method="post" action="/classroom/edit/id/{{$classroom->id}}">
             @csrf
-            <div class="bg-light p-5 rounded mt-3">
-
+            <div class="bg-light p-4 rounded mt-3">
                 <div class="col-5">
                     <div class="form-floating mb-3">
                         <input type="text" name="name" class="form-control" id="floatingInput"
@@ -26,7 +25,7 @@
     </main>
 
     <main class="container">
-        <div class="bg-light p-5 rounded mt-3">
+        <div class="bg-light p-4 rounded mt-3">
             <div class="col-5">
                 <div class="form-floating mb-3">
                     <input type="text" name="name" class="form-control" id="floatingInput"

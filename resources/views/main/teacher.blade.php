@@ -25,7 +25,7 @@
 
     <main class="container">
         <div class="bg-light p-5 rounded mt-3">
-            <a class="btn btn-lg btn-success" href="/schedule/add" role="button"><i class="bi bi-plus-circle"></i> Добавить расписание</a>
+            <a class="btn btn-lg btn-success" href="/schedule/add" role="button"><i class="bi bi-plus-circle"></i> Создать расписание</a>
         </div>
     </main>
 </x-app-layout>

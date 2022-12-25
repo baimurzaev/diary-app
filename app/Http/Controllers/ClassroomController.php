@@ -12,8 +12,10 @@ class ClassroomController extends Controller
 {
     public function list(): View
     {
+        $pupils = DB::table('classrooms')->orderBy('created_at','desc')->get();
+
         return view('classroom.list', [
-            'classrooms' => Classroom::all()
+            'classrooms' =>$pupils
         ]);
     }
 
@@ -23,10 +25,11 @@ class ClassroomController extends Controller
 
         if ($id > 0) {
             if (Classroom::find($id)) {
+                // @todo вынести из контроллера
                 $count = DB::table('classroom_users')
                     ->where('classroom_id', '=', $id)
                     ->count();
-
+                // @todo вынести из контроллера в сервис
                 $pupils = DB::table('classroom_users as cu')
                     ->leftJoin('users as u', 'cu.user_id', '=', 'u.id')
                     ->where("cu.classroom_id", '=', $id)
@@ -61,7 +64,7 @@ class ClassroomController extends Controller
 
     /**
      * @param Request $request
-     * @return void
+     * @return View
      */
     public function edit(Request $request): View
     {
