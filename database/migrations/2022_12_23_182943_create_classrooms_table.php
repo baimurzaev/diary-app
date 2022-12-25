@@ -16,6 +16,7 @@ class CreateClassroomsTable extends Migration
         Schema::create('classrooms', function (Blueprint $table) {
             $table->id();
             $table->string('name', 16);
+            $table->integer('pupils_count')->default(0);
             $table->timestamps();
         });
     }

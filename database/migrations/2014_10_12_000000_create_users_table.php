@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('middle_name', 64)->nullable();
             $table->string('last_name', 64)->nullable();
             $table->tinyInteger('group_id')->default(1);
+            $table->tinyInteger('classroom_id')->nullable();
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
