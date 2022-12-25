@@ -7,25 +7,20 @@
         </nav>
     </div>
 
-    <main class="container">
-        <div class="bg-light p-5 rounded mt-3">
-            <h2>5А класс</h2>
+    <div class="container">
+        <div class="bg-light p-4 rounded mt-4">
+            <a class="btn btn-primary" href="/schedule/add" role="button">Создать расписание</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="bg-light p-4 rounded mt-3">
+            <h3>5А класс</h3>
             <p class="lead">Учеников в классе: 21</p>
-            <a class="btn btn-primary" href="/" role="button">Управлять расписанием &raquo;</a>
+            <a class="btn btn-secondary" href="/" role="button">
+                <i class="bi bi-pencil"></i> Редактировать</a>
         </div>
-    </main>
+    </div>
 
-    <main class="container">
-        <div class="bg-light p-5 rounded mt-3">
-            <h2>5А класс</h2>
-            <p class="lead">Учеников в классе: 32</p>
-            <a class="btn btn-primary" href="/" role="button">Управлять расписанием &raquo;</a>
-        </div>
-    </main>
 
-    <main class="container">
-        <div class="bg-light p-5 rounded mt-3">
-            <a class="btn btn-lg btn-success" href="/schedule/add" role="button"><i class="bi bi-plus-circle"></i> Создать расписание</a>
-        </div>
-    </main>
 </x-app-layout>

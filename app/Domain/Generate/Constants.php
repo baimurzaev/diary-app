@@ -4,23 +4,26 @@ namespace App\Domain\Generate;
 
 final class Constants
 {
-    const GENDER_MALE = 1;
-    const GENDER_FEMALE = 2;
+    public const GENDER_MALE = 1;
+    public const GENDER_FEMALE = 2;
+
+    public const GEN_PASSWORD = '12341234';
 
     public const SUBJECTS = [
-        'Математика',
-        'Русский язык',
-        'Английский язык',
-        'Литература',
-        'Физкультура',
-        'Окружающий мир'
+        ['name' => 'Математика', 'time' => 45],
+        ['name' => 'Русский язык', 'time' => 45],
+        ['name' => 'Английский язык', 'time' => 45],
+        ['name' => 'Литература', 'time' => 45],
+        ['name' => 'Физкультура', 'time' => 45],
+        ['name' => 'Окружающий мир', 'time' => 45],
+        ['name' => 'Перемена', 'time' => 10]
     ];
 
     public const CLASSROOMS = [
-        '5А',
-        '5Б',
+        '3А',
+        '3Б',
         '4Г (1 группа)',
-        '5Г (2 группа)'
+        '4Г (2 группа)'
     ];
 
     public const MALE_FIRST_NAMES = [

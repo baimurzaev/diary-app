@@ -12,10 +12,11 @@ class SubjectsService
      */
     public function create(): void
     {
-        foreach (Constants::SUBJECTS as $name) {
-            $subject = new Subject();
-            $subject->name = $name;
-            $subject->save();
+        foreach (Constants::SUBJECTS as $subject) {
+            Subject::create([
+                'name' => $subject['name'],
+                'amount_time' => $subject['time']
+            ]);
         }
     }
 }
