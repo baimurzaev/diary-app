@@ -9,7 +9,7 @@
 
     <main class="container">
         <div class="bg-light p-4 rounded mt-4">
-            <a class="btn btn-primary" href="/classroom/add" role="button">Создать новый класс</a>
+            <a class="btn btn-primary" href="/classroom/add" role="button">Создать класс</a>
         </div>
     </main>
 

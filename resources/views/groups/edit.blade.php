@@ -2,19 +2,20 @@
     <div class="container">
         <nav class="navbar bg-blue">
             <div class="container-fluid">
-                <a class="navbar-brand text-white" href="#">Редактирование класса</a>
+                <a class="navbar-brand text-white" href="#">Редактирование группы</a>
             </div>
         </nav>
     </div>
 
     <main class="container">
-        <form method="post" action="/classroom/edit/id/{{$classroom->id}}">
+        <form method="post" action="/groups/edit">
+            <input name="id" type="hidden" value="{{$group->id}}">
             @csrf
             <div class="bg-light p-4 rounded mt-3">
                 <div class="col-5">
                     <div class="form-floating mb-3">
                         <input type="text" name="name" class="form-control" id="floatingInput"
-                               value="{{$classroom->name}}">
+                               value="{{$group->name}}">
                         <label for="floatingInput">Режим редактирования</label>
                     </div>
                 </div>
@@ -35,7 +36,7 @@
             </div>
             <div class="col">
                 <button class="btn btn-primary float-end"
-                        onclick="pupils.generatePupils({{$classroom->id}},'{{ csrf_token() }}')"
+                        onclick="pupils.generatePupils({{$group->id}},'{{ csrf_token() }}')"
                         role="button">Добвить учеников
                 </button>
                 <button type="submit" class="btn btn-primary" role="button">Добавить</button>
@@ -49,16 +50,16 @@
     <script>
         let pupils = (function () {
             document.addEventListener("DOMContentLoaded", function () {
-                pupils.loadPupilsList({{$classroom->id}});
+                pupils.loadPupilsList({{$group->id}});
             });
 
             return {
                 generatePupils: function (id, token) {
-                    if (!confirm("Сформировать класс?")) {
+                    if (!confirm("Сформировать группу?")) {
                         return;
                     }
 
-                    $.post("/generate/classroom/pupils", {id: id, "_token": token}, function (res) {
+                    $.post("/generate/group/pupils", {id: id, "_token": token}, function (res) {
                         if (res.hasOwnProperty('status') && res.status === "ok") {
                             pupils.loadPupilsList(id);
                         }
@@ -67,7 +68,7 @@
                 loadPupilsList: function (id) {
                     $("#pupils-list").html('<div class="spinner-border text-center" role="status"></div>');
 
-                    $.get("/classroom/pupils/list/id/" + id, {}, function (html) {
+                    $.get("/groups/pupils/list/id/" + id, {}, function (html) {
                         $("#pupils-list").html(html);
                     });
                 }
