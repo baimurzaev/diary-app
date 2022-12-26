@@ -84,9 +84,10 @@
                 saveForm: function () {
                     let schedule = {
                         name: $("#schedule-name").val(),
-                        time: $("#time-start").val(),
+                        time_start: $("#time-start").val(),
                         classroom_id: $("#classroom").find("option:selected").val(),
-                        weeks: []
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        lessons: []
                     }
 
                     if (!this.check(schedule)) {
@@ -104,11 +105,12 @@
                         });
                     }
 
+                    //alert("fdgdfg");
                     $("#loading-spinner").show();
-                    $("#btn-save").hide();
+                   // $("#btn-save").hide();
                     $.post("/schedule/add", schedule, function (res) {
                         $("#loading-spinner").hide();
-                        $("#btn-save").show();
+                        //$("#btn-save").show();
                         if (res.hasOwnProperty('status') && res.status === "ok") {
                             location.href = '/schedules';
                             return;
@@ -131,6 +133,8 @@
                         alert('Пожалуйста, выберите класс');
                         return false;
                     }
+
+                    return true;
                 },
                 createSelectInput: function () {
                     let selectInput = '<select style="width: 10px" class="form-select form-control" onchange="schedule.setTime(this)">';

@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
     /**
-     * @return Redirector
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function index(): Redirector
+    public function index()
     {
-        if (Auth::user()['group_id'] == 2) {
-            return redirect("/main/schedules");
-        };
+        $action = (Auth::user()['group_id'] == 1) ? "teacher" : "pupil";
 
-        return redirect("/schedules");
+        return redirect()->action([ScheduleController::class, $action]);
     }
 }

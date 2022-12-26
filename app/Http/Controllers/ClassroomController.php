@@ -102,5 +102,4 @@ class ClassroomController extends Controller
 
         return response()->json(['status' => 'err']);
     }
-
 }

@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
 
     # Schedule
     Route::match(['get', 'post'], '/schedule/add', [ScheduleController::class, 'add']);
-    Route::get('/schedules', [ScheduleController::class, 'list']);
+    Route::get('/schedules', [ScheduleController::class, 'teacher']);
 
     # Classroom
     Route::get('/classroom', [ClassroomController::class, 'list']);
