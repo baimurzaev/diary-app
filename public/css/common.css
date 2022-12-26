@@ -27,20 +27,17 @@
     -webkit-overflow-scrolling: touch;
 }
 
-.w-5{
- max-width: 15px;
+.w-5 {
+    max-width: 15px;
 }
 
-nav > .justify-between{
+nav > .justify-between {
     display: none;
 }
 
-.hidden .text-gray-700{
-
-}
-nav .shadow-sm a.ring-gray-300{
+nav .shadow-sm a.ring-gray-300 {
     text-decoration: none;
-    color:#0d6efd;
+    color: #0d6efd;
 }
 
 @media (min-width: 1400px) {
