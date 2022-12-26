@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Services\Pupils\PupilsService;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class PupilsController extends Controller
 {
-    public function list()
+    public function list(Request $request): View
     {
-        return view('pupils.list', [
-            'pupils' => User::latest()->where('group_id', '=', 2)->paginate(30)->withQueryString()
-        ]);
+        $service = new PupilsService();
 
+        return view('pupils.list', [
+            'pupils' => $service->list()
+        ]);
     }
 }

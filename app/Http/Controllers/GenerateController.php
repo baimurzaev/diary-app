@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\Generate\Constants;
-use App\Domain\Generate\GenerateUsers;
 use App\Models\Classroom;
 use App\Models\ClassroomUser;
 use App\Services\Generate\ClassroomService;

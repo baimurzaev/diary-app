@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\GroupPupil;
+use App\Services\Pupils\GroupPupilsService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 final class GroupsController extends Controller
@@ -80,22 +80,15 @@ final class GroupsController extends Controller
         return response()->json(['status' => 'err']);
     }
 
-    public function pupilsList(Request $request)
+    public function pupilsList(Request $request): View|string
     {
-        $id = (int)$request->id;
+        $groupId = (int)$request->id;
 
-        if ($id > 0) {
-            if (GroupPupil::find($id)) {
-
-                $count = DB::table('group_pupils_links')
-                    ->where('group_id', '=', $id)
-                    ->count();
-
-                // @todo вынести из контроллера в сервис
-                $pupils = DB::table('group_pupils_links as gpl')
-                    ->leftJoin('users as u', 'gpl.user_id', '=', 'u.id')
-                    ->where("gpl.group_id", '=', $id)
-                    ->get();
+        if ($groupId > 0) {
+            if (GroupPupil::find($groupId)) {
+                $service = new GroupPupilsService();
+                $count = $service->getGroupPupilsCount($groupId);
+                $pupils = $service->getGroupPupilsList($groupId);
 
                 return view('groups.pupils', [
                     'count' => $count,

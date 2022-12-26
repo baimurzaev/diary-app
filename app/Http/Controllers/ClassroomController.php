@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classroom;
+use App\Services\Classroom\ClassroomService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,19 +22,13 @@ class ClassroomController extends Controller
 
     public function pupilsList(Request $request)
     {
-        $id = (int)$request->id;
+        $classroomId = (int)$request->id;
 
-        if ($id > 0) {
-            if (Classroom::find($id)) {
-                // @todo вынести из контроллера
-                $count = DB::table('classroom_users')
-                    ->where('classroom_id', '=', $id)
-                    ->count();
-                // @todo вынести из контроллера в сервис
-                $pupils = DB::table('classroom_users as cu')
-                    ->leftJoin('users as u', 'cu.user_id', '=', 'u.id')
-                    ->where("cu.classroom_id", '=', $id)
-                    ->get();
+        if ($classroomId > 0) {
+            $service = new ClassroomService();
+            if (Classroom::find($classroomId)) {
+                $count = $service->getClassroomUsersCount($classroomId);
+                $pupils = $service->getClassroomPupils($classroomId);
 
                 return view('classroom.pupils', [
                     'count' => $count,
