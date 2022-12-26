@@ -4,7 +4,9 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ClassroomController;
 use App\Http\Controllers\GenerateController;
+use App\Http\Controllers\GroupsController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\PupilsController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,10 +23,11 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/', [MainController::class, 'indexPage']);
+    Route::get('/', [MainController::class, 'index']);
 
     # Schedule
     Route::match(['get', 'post'], '/schedule/add', [ScheduleController::class, 'add']);
+    Route::get('/schedules', [ScheduleController::class, 'list']);
 
     # Classroom
     Route::get('/classroom', [ClassroomController::class, 'list']);
@@ -35,6 +38,17 @@ Route::middleware('auth')->group(function () {
 
     # Generate users (for classroom)
     Route::post('/generate/classroom/pupils', [GenerateController::class, 'generatePupils']);
+
+    # Groups
+    Route::get('/groups', [GroupsController::class, 'list']);
+    Route::match(['get', 'post'], '/groups/add', [GroupsController::class, 'add']);
+    Route::get('/groups/edit/id/{id}/', [GroupsController::class, 'edit']);
+    Route::post('/groups/edit', [GroupsController::class, 'edit']);
+    Route::post('/groups/delete', [GroupsController::class, 'delete']);
+    Route::get("/groups/pupils/list/id/{id}", [GroupsController::class, 'pupilsList']);
+
+    # Pupils
+    Route::get('/pupils', [PupilsController::class, 'list']);
 
 
     Route::get('/dashboard', function () {

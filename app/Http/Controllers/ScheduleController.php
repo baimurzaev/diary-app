@@ -2,25 +2,38 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Schedules\Constants;
+use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class ScheduleController extends Controller
 {
+    public function list(): View
+    {
+        return view('schedule.list');
+    }
+
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return View
      */
-    public function add(Request $request)
+    public function add(Request $request): View
     {
         if ($request->isMethod('post')) {
-            $input = $request->only(['username', 'password']);
+
         }
 
-        $classrooms = DB::table('classrooms')->orderBy('created_at', 'desc')->get();
+        // todo вынести из контроллера
+        $classrooms = DB::table('classrooms')
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('schedule.add', [
-            'classrooms' => $classrooms
+            'classrooms' => $classrooms,
+            'subjects' => Subject::all(),
+            'weeks' => Constants::WEEKS
         ]);
     }
 }

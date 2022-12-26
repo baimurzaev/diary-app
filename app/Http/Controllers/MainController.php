@@ -3,14 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
-    public function indexPage()
+    /**
+     * @return Redirector
+     */
+    public function index(): Redirector
     {
-        $startPage = (Auth::user()['group_id'] == 1) ? 'teacher' : 'pupil';
+        if (Auth::user()['group_id'] == 2) {
+            return redirect("/main/schedules");
+        };
 
-        return view('main.' . $startPage);
+        return redirect("/schedules");
     }
 }
