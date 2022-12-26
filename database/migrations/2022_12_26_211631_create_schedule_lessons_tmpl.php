@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScheduleLessonsTable extends Migration
+class CreateScheduleLessonsTmpl extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,13 @@ class CreateScheduleLessonsTable extends Migration
      */
     public function up()
     {
-        Schema::create('schedule_lessons', function (Blueprint $table) {
+        Schema::create('schedule_lessons_tmpl', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('subject_id')->index();
-            $table->bigInteger('schedule_id')->index();
             $table->string('title', 192)->nullable();
-            $table->string('homework', 255)->nullable();
-            $table->dateTime('lesson_start');
-            $table->dateTime('lesson_end');
+            $table->bigInteger('schedule_id')->index();
+            $table->dateTime('time_start');
             $table->tinyInteger('day_num');
             $table->tinyInteger('position')->default(1);
-            //$table->foreignId('subject_id')->constrained('subjects');
             $table->timestamps();
         });
     }
@@ -35,6 +31,6 @@ class CreateScheduleLessonsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schedule_lessons');
+        Schema::dropIfExists('schedule_lessons_tmpl');
     }
 }
