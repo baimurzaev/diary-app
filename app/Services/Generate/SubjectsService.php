@@ -15,7 +15,7 @@ class SubjectsService
         foreach (Constants::SUBJECTS as $subject) {
             Subject::create([
                 'name' => $subject['name'],
-                'amount_time' => $subject['time']
+                'num_minutes' => $subject['time']
             ]);
         }
     }
