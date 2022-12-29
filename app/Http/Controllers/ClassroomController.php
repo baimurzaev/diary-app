@@ -4,74 +4,57 @@ namespace App\Http\Controllers;
 
 use App\Models\Classroom;
 use App\Services\Classroom\ClassroomService;
+use App\Services\Pupils\PupilsService;
+use App\Services\Schedules\SchedulesService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
 class ClassroomController extends Controller
 {
     public function list(): View
     {
-        $pupils = DB::table('classrooms')->orderBy('created_at','desc')->get();
-
         return view('classroom.list', [
-            'classrooms' =>$pupils
+            'classrooms' => (new ClassroomService())->getAll()
         ]);
     }
 
-    public function pupilsList(Request $request)
-    {
-        $classroomId = (int)$request->id;
-
-        if ($classroomId > 0) {
-            $service = new ClassroomService();
-            if (Classroom::find($classroomId)) {
-                $count = $service->getClassroomUsersCount($classroomId);
-                $pupils = $service->getClassroomPupils($classroomId);
-
-                return view('classroom.pupils', [
-                    'count' => $count,
-                    'pupils' => $pupils
-                ]);
-            }
-        }
-
-        return '';
-    }
-
+    /**
+     * @param Request $request
+     * @return Redirector|View
+     */
     public function add(Request $request)
     {
         if ($request->isMethod('post')) {
-            $input = $request->only(['name']);
+            $service = new ClassroomService();
+            $id = $service->createClassroom($request->toArray());
 
-            if (mb_strlen($input['name']) >= 2) {
-                $classroom = new Classroom();
-                $classroom->name = $input['name'];
-                $classroom->save();
-
-                return redirect('/classroom/edit/id/' . $classroom->id);
-            }
+            return redirect('/classroom/edit/id/' . $id);
         }
 
         return view('classroom.add');
+    }
+
+    public function edit(Request $request)
+    {
+        if ($request->isMethod('post')) {
+            $service = new ClassroomService();
+            $service->save($request->toArray());
+        }
+
+        return back();
     }
 
     /**
      * @param Request $request
      * @return View
      */
-    public function edit(Request $request): View
+    public function editForm(Request $request): View
     {
         $id = (int)$request->id;
 
-        if ($id > 0) {
-            $classroom = Classroom::find($id);
-
-            if (!$classroom) {
-                abort(404);
-            }
-
+        if ($id > 0 && $classroom = Classroom::find($id)) {
             return view('classroom.edit', [
                 'classroom' => $classroom
             ]);
@@ -89,17 +72,41 @@ class ClassroomController extends Controller
         if ($request->isMethod('post')) {
             $id = (int)$request->post('id');
 
-            if ($id > 0) {
-                /** @var Classroom $classroom */
-                $classroom = Classroom::find($id);
-
-                if ($classroom) {
-                    $classroom->delete();
-                    return response()->json(['status' => 'ok']);
-                }
+            if ($id > 0 && $classroom = Classroom::find($id)) {
+                $classroom->delete();
+                return response()->json(['status' => 'ok']);
             }
         }
 
         return response()->json(['status' => 'err']);
     }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function unlinkPupil(Request $request): JsonResponse
+    {
+        $service = new PupilsService();
+        $result = $service->unlink($request->toArray());
+
+        if ($result > 0) {
+            return response()->json(['status' => 'ok']);
+        }
+
+        return response()->json(['status' => 'err']);
+    }
+
+    public function linkPupil(Request $request): JsonResponse
+    {
+        $service = new PupilsService();
+        $result = $service->link($request->toArray());
+
+        if ($result) {
+            return response()->json(['status' => 'ok']);
+        }
+
+        return response()->json(['status' => 'err']);
+    }
+
 }

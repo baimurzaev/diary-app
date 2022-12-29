@@ -50,3 +50,39 @@ nav .shadow-sm a.ring-gray-300 {
         max-width: 1000px
     }
 }
+
+/* Autocomplete plugin  */
+.autocomplete-suggestions {
+    border: 1px solid #999;
+    background: #FFF;
+    overflow: auto;
+}
+
+.autocomplete-suggestion {
+    padding: 5px 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.autocomplete-selected {
+    background: #F0F0F0;
+}
+
+.autocomplete-suggestions strong {
+    font-weight: bold;
+    color: #f40000;
+}
+
+.autocomplete-group {
+    padding: 2px 5px;
+}
+
+.autocomplete-group strong {
+    display: block;
+    border-bottom: 1px solid #000;
+}
+
+/* end */
+.ui-autocomplete {
+    z-index: 8888 !important;
+}

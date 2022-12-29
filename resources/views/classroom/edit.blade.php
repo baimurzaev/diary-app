@@ -2,20 +2,21 @@
     <div class="container">
         <nav class="navbar bg-blue">
             <div class="container-fluid">
-                <a class="navbar-brand text-white" href="#">Редактирование класса</a>
+                <a class="navbar-brand text-white" href="#">Управление классом</a>
             </div>
         </nav>
     </div>
 
     <main class="container">
-        <form method="post" action="/classroom/edit/id/{{$classroom->id}}">
+        <form method="post" action="/classroom/edit">
+            <input type="hidden" name="id" value="{{$classroom->id}}">
             @csrf
             <div class="bg-light p-4 rounded mt-3">
                 <div class="col-5">
                     <div class="form-floating mb-3">
-                        <input type="text" name="name" class="form-control" id="floatingInput"
+                        <input type="text" name="name" class="form-control" id="classroomName"
                                value="{{$classroom->name}}">
-                        <label for="floatingInput">Режим редактирования</label>
+                        <label for="classroomName">Название класса</label>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success" role="button">Сохранить</button>
@@ -24,55 +25,33 @@
         </form>
     </main>
 
-    <main class="container">
+    <div class="container">
         <div class="bg-light p-4 rounded mt-3">
             <div class="col-5">
                 <div class="form-floating mb-3">
-                    <input type="text" name="name" class="form-control" id="floatingInput"
-                           value="">
-                    <label for="floatingInput">Введите Ф.И.О. для поиска</label>
+                    <input type="text" name="name" class="form-control" id="pupilNameSearch" value="">
+                    <label for="pupilNameSearch">Введите Ф.И.О. для поиска</label>
                 </div>
             </div>
             <div class="col">
                 <button class="btn btn-primary float-end"
-                        onclick="pupils.generatePupils({{$classroom->id}},'{{ csrf_token() }}')"
-                        role="button">Добвить учеников
+                        onclick="pupils.generate({{$classroom->id}},'{{ csrf_token() }}')"
+                        role="button">Добавить учеников
                 </button>
-                <button type="submit" class="btn btn-primary" role="button">Добавить</button>
+<div class="clearfix"></div>
             </div>
         </div>
         <div class="bg-light p-5 rounded mt-3">
             <div id="pupils-list"></div>
         </div>
-    </main>
+        <br>
+        <br>
+    </div>
 
     <script>
-        let pupils = (function () {
-            document.addEventListener("DOMContentLoaded", function () {
-                pupils.loadPupilsList({{$classroom->id}});
-            });
-
-            return {
-                generatePupils: function (id, token) {
-                    if (!confirm("Сформировать класс?")) {
-                        return;
-                    }
-
-                    $.post("/generate/classroom/pupils", {id: id, "_token": token}, function (res) {
-                        if (res.hasOwnProperty('status') && res.status === "ok") {
-                            pupils.loadPupilsList(id);
-                        }
-                    });
-                },
-                loadPupilsList: function (id) {
-                    $("#pupils-list").html('<div class="spinner-border text-center" role="status"></div>');
-
-                    $.get("/classroom/pupils/list/id/" + id, {}, function (html) {
-                        $("#pupils-list").html(html);
-                    });
-                }
-            }
-        })();
+        document.addEventListener("DOMContentLoaded", function () {
+            pupils.init({{$classroom->id}});
+            pupils.loadPupilsList({{$classroom->id}});
+        });
     </script>
-
 </x-app-layout>
