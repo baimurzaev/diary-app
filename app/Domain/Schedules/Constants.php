@@ -4,7 +4,7 @@ namespace App\Domain\Schedules;
 
 class Constants
 {
-    public const WEEKS = [
+    public const WEEK_DAYS = [
         1 => 'Понедельник',
         2 => 'Вторник',
         3 => 'Среда',

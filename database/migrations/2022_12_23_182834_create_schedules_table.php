@@ -17,9 +17,8 @@ class CreateSchedulesTable extends Migration
             $table->id();
             $table->string('name', 128);
             $table->bigInteger('user_id');
-            $table->bigInteger('classroom_id');
             $table->date('time_start');
-            //$table->foreignId('user_id')->constrained('users');
+            //$table->foreignId('user_id')->constrained('user');
             //$table->foreignId('classroom_id')->constrained('classrooms');
             $table->timestamps();
         });

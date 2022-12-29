@@ -1,4 +1,5 @@
 <x-app-layout>
+    <div id="schedule-id" data-id="{{$schedule->id}}"></div>
     <div class="container">
         <nav class="navbar bg-blue">
             <div class="container-fluid">
@@ -11,11 +12,12 @@
         <div class="bg-light p-4 rounded mt-3">
             <div class="col-5">
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="schedule-name" placeholder="Название">
-                    <label for="scheduleName">Название</label>
+                    <input type="text" class="form-control" id="schedule-name" value="{{$schedule->name}}">
+                    <label for="schedule-name">{{$schedule->name}}</label>
                 </div>
-                <div class="form-floating ">
-                    <input type="text" class="form-control" value="08:30" id="time-start" placeholder="08:30">
+                <div class="form-floating">
+                    <input type="text" class="form-control" value="{{$schedule->time_start}}" id="time-start"
+                           placeholder="{{$schedule->time_start}}">
                     <label for="time-start">Время начала первого урока</label>
                 </div>
             </div>
@@ -31,7 +33,35 @@
                     <div class="col-1"></div>
                     <div class="col-2">Кол-во минут</div>
                 </div>
-                <div id="scheduleDay{{$day}}"></div>
+                <div id="scheduleDay{{$day}}">
+                    @if(count($days)>0)
+                        @foreach($days[$day] as $lesson)
+                            <div class="row mb-3 mt-3" data-item-id="{{$lesson->id}}">
+                                <div class="col-4">
+                                    <input name="name" type="text" class="form-control" value="{{$lesson->title}}">
+                                </div>
+                                <div class="col-1">
+                                    <select style="width: 10px" class="form-select form-control"
+                                            onchange="schedule.setTime(this)">
+                                        <option selected></option>
+                                        @foreach($subjects as $subject)
+                                            <option data-time="{{$subject->num_minutes}}"  value="{{$subject->id}}">{{$subject->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-2">
+                                    <input name="time" type="text" class="form-control"
+                                           value="{{$lesson->num_minutes}}">
+                                </div>
+                                <div class="col">
+                                    <button onclick="schedule.remove(this)" type="button" class="btn btn-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
 
                 <div class="row row-cols-sm-auto g-3 float-start">
                     <div class="col-12">
@@ -73,8 +103,7 @@
             <div class="spinner-border" style="display: none" id="loading-spinner" role="status">
                 <span class="visually-hidden">Загружается...</span>
             </div>
-            <button id="btn-save" class="btn btn-success" onclick="schedule.create()" role="button">Создать расписание
-            </button>
+            <button id="btn-save" class="btn btn-success" onclick="schedule.save()" role="button">Сохранить</button>
         </div>
     </div>
 
