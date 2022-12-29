@@ -19,7 +19,7 @@ class GenerateUsers
         for ($i = 1; $i <= $amount; $i++) {
             $genderType = rand(Constants::GENDER_MALE, Constants::GENDER_FEMALE);
             $data[] = [
-                'email' => sprintf("%s@mail.ru", md5(microtime(true) . $i)),
+                'email' => sprintf("%s@mail.ru", mb_substr(md5(microtime(true) . $i), 1, 16)),
                 'password' => Hash::make(Constants::GEN_PASSWORD),
                 'name' => $userGenerate->firstName($genderType),
                 'middle_name' => $userGenerate->middleName($genderType),

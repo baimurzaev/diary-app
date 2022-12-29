@@ -31,17 +31,8 @@
             </a>
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="/classroom" class="nav-link px-2 link-dark">
-                        <i class="bi bi-diagram-3"></i> Классы</a></li>
-                <li>
-                    <a href="/schedules" class="nav-link px-2 link-dark">
-                        <i class="bi bi-calendar3"></i> Расписания</a>
-                </li>
-                <li><a href="/subjects" class="nav-link px-2 link-dark">
-                            <i class="bi bi-journals"></i>
-                        Предметы</a></li>
-                <li><a href="/pupils" class="nav-link px-2 link-dark">
-                        <i class="bi bi-people"></i> Ученики</a></li>
+                <li><a href="/schedule/pupil" class="nav-link px-2 link-dark">
+                        <i class="bi bi-calendar3"></i> Расписание</a></li>
             </ul>
 
             <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -54,7 +45,6 @@
                     <img src="/images/ava.jpg" alt="mdo" class="rounded-circle" width="32" height="32">
                 </a>
                 <ul class="dropdown-menu text-small">
-                    <li><a class="dropdown-item" href="/profile">Профиль</a></li>
                     <li>
                         <hr class="dropdown-divider">
                     </li>

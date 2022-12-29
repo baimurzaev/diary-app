@@ -26,7 +26,7 @@ class GroupPupilsService
     public function getGroupPupilsList($groupId): Collection
     {
         return DB::table('group_pupils_links as gpl')
-            ->leftJoin('users as u', 'gpl.user_id', '=', 'u.id')
+            ->leftJoin('user as u', 'gpl.user_id', '=', 'u.id')
             ->where("gpl.group_id", '=', $groupId)
             ->get();
     }

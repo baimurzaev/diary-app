@@ -15,10 +15,23 @@
                     <input type="text" name="name" class="form-control" id="userName" placeholder="Имя"/>
                     <label for="userName">Имя</label>
                 </div>
+                <!-- Name -->
+                <div class="form-floating border-first">
+                    <input type="text" name="last_name" class="form-control" id="userLastName" placeholder="Фамилия"/>
+                    <label for="userLastName">Фамилия</label>
+                </div>
+
                 <!-- Email -->
                 <div class="form-floating border-middle">
                     <input type="email" name="email" class="form-control" id="userEmail" placeholder="name@example.ru"/>
                     <label for="userEmail">Email</label>
+                </div>
+                <div class="form-floating border-middle">
+                    <select name="group_id"  class="form-control"  id="accountType">
+                        <option value="1" selected>Я учитель</option>
+                        <option value="2">Я ученик</option>
+                    </select>
+                    <label for="accountType">Тип аккаунта</label>
                 </div>
                 <!-- Password -->
                 <div class="form-floating border-middle">

@@ -9,24 +9,26 @@
     </div>
 
     <div class="container">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Ф.И.О.</th>
-                <th scope="col">E-Mail</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($pupils as $pupil)
+        <div class="bg-light p-4 rounded mt-4">
+            <table class="table">
+                <thead>
                 <tr>
-                    <th scope="row">{{$pupil->id}}</th>
-                    <td>{{$pupil->last_name}} {{$pupil->name}} {{$pupil->middle_name}}</td>
-                    <td>{{$pupil->email}}</td>
+                    <th scope="col">#ID</th>
+                    <th scope="col">Ф.И.О.</th>
+                    <th scope="col">E-Mail</th>
                 </tr>
-            @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach($pupils as $pupil)
+                    <tr>
+                        <th scope="row">{{$pupil->id}}</th>
+                        <td>{{$pupil->last_name}} {{$pupil->name}} {{$pupil->middle_name}}</td>
+                        <td>{{$pupil->email}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="container">
         <div class="p-4 rounded mt-4">
